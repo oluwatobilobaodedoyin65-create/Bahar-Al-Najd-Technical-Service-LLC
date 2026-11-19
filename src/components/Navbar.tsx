@@ -51,10 +51,8 @@ export function Navbar({ onOpenQuote }: NavbarProps) {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-200 ${
-        isScrolled
-          ? 'bg-[#081A13]/96 backdrop-blur-md shadow-[0_6px_24px_rgba(0,0,0,0.28)] border-b border-white/10'
-          : 'bg-[#0A1813]/82 backdrop-blur-sm border-b border-white/10'
+      className={`fixed top-0 left-0 right-0 z-50 bg-[#081F16] border-b border-white/10 transition-shadow duration-200 ${
+        isScrolled ? 'shadow-[0_6px_24px_rgba(0,0,0,0.32)]' : ''
       }`}
     >
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 h-[72px] lg:h-[78px] flex items-center justify-between gap-6">
