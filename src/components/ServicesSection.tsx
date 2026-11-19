@@ -55,7 +55,7 @@ export function ServicesSection({ onSelectService }: ServicesSectionProps) {
               key={service.id}
               type="button"
               onClick={() => onSelectService(service)}
-              className="group text-left rounded-[16px] bg-[#FAF6F0] border border-[#E5DBCB] overflow-hidden shadow-[0_6px_24px_rgba(12,43,30,0.05)] hover:shadow-[0_16px_34px_rgba(12,43,30,0.11)] hover:-translate-y-1 transition-all duration-200 flex flex-col cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0C3323]"
+              className="group w-full text-center md:text-left rounded-[16px] bg-[#FAF6F0] border border-[#E5DBCB] overflow-hidden shadow-[0_6px_24px_rgba(12,43,30,0.05)] hover:shadow-[0_16px_34px_rgba(12,43,30,0.11)] hover:-translate-y-1 transition-all duration-200 flex flex-col items-stretch cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0C3323]"
             >
               {/* Enlarged High-Visibility Interior Photo */}
               <div className="w-full aspect-[4/3] lg:aspect-[16/11] overflow-hidden bg-[#E9E0D1]">
@@ -67,14 +67,14 @@ export function ServicesSection({ onSelectService }: ServicesSectionProps) {
                 />
               </div>
 
-              {/* Card Body */}
-              <div className="p-4 sm:p-5 flex-1 flex flex-col items-center text-center sm:items-stretch sm:text-left justify-between gap-3.5">
-                <div className="flex items-center justify-center sm:justify-start">
+              {/* Card Body (Strictly centered on mobile < md, left-aligned on desktop md+) */}
+              <div className="w-full p-4 sm:p-5 flex-1 flex flex-col items-center text-center md:items-stretch md:text-left justify-between gap-3.5">
+                <div className="w-full flex items-center justify-center md:justify-start">
                   {renderServiceIcon(service.iconKey)}
                 </div>
 
-                <div className="flex flex-col sm:flex-row items-center sm:items-end justify-between gap-3 sm:gap-3 w-full">
-                  <div className="text-center sm:text-left">
+                <div className="w-full flex flex-col md:flex-row items-center md:items-end justify-between gap-3">
+                  <div className="w-full text-center md:text-left">
                     <h3 className="text-[15.5px] lg:text-[17px] font-bold text-[#0C2B1E] leading-[1.28] tracking-[-0.01em]">
                       {service.title}
                     </h3>
