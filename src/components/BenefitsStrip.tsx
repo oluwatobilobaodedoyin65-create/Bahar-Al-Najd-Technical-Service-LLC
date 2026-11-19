@@ -38,13 +38,13 @@ export function BenefitsStrip() {
           {BENEFITS.map(({ id, line1, line2, Icon }) => (
             <div
               key={id}
-              className="flex items-center justify-start sm:justify-center gap-3.5 px-3 sm:px-6"
+              className="flex flex-col sm:flex-row items-center justify-center gap-2 sm:gap-3.5 px-3 sm:px-6 text-center sm:text-left"
             >
               <Icon
                 className="w-9 h-9 sm:w-10 sm:h-10 text-[#E4B753] shrink-0"
                 strokeWidth={1.4}
               />
-              <div className="leading-[1.2] text-left">
+              <div className="leading-[1.2] text-center sm:text-left">
                 <span className="block text-[14px] sm:text-[15px] font-semibold text-white">
                   {line1}
                 </span>

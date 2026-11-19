@@ -26,14 +26,15 @@ export function TestimonialsSection() {
       className="w-full bg-[#0B3222] py-14 sm:py-16 lg:py-[68px]"
     >
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Header Row with Navigation Arrows */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-9 lg:mb-10">
+        {/* Header Row with Navigation Arrows (centered on mobile) */}
+        <div className="flex flex-col items-center text-center md:flex-row md:items-end md:text-left justify-between gap-6 mb-9 lg:mb-10">
           <div className="max-w-[580px]">
-            <div className="inline-flex items-center gap-3.5 mb-2.5">
+            <div className="inline-flex items-center justify-center md:justify-start gap-3.5 mb-2.5">
+              <span className="md:hidden w-10 h-[1px] bg-[#E4B753]/70" aria-hidden="true" />
               <span className="text-[11px] sm:text-[12px] font-bold tracking-[0.2em] text-[#E4B753] uppercase">
                 TESTIMONIALS
               </span>
-              <span className="w-12 h-[1px] bg-[#E4B753]/70" aria-hidden="true" />
+              <span className="w-10 md:w-12 h-[1px] bg-[#E4B753]/70" aria-hidden="true" />
             </div>
 
             <h2 className="text-[28px] sm:text-[34px] lg:text-[38px] font-extrabold text-white tracking-[-0.02em] leading-[1.15]">
@@ -46,7 +47,7 @@ export function TestimonialsSection() {
           </div>
 
           {/* Subtle Circular Navigation Arrows */}
-          <div className="flex items-center gap-2.5 shrink-0">
+          <div className="flex items-center justify-center gap-2.5 shrink-0">
             <button
               type="button"
               onClick={handlePrev}
@@ -71,12 +72,12 @@ export function TestimonialsSection() {
           {visibleItems.map((item) => (
             <article
               key={item.id}
-              className="rounded-[14px] bg-[#FAF6F0] border border-[#E5DBCB]/80 p-6 flex flex-col justify-between shadow-[0_10px_28px_rgba(4,18,12,0.22)]"
+              className="rounded-[14px] bg-[#FAF6F0] border border-[#E5DBCB]/80 p-6 flex flex-col justify-between text-center md:text-left shadow-[0_10px_28px_rgba(4,18,12,0.22)]"
             >
               <div>
                 {/* Star Rating */}
                 <div
-                  className="flex items-center gap-1 mb-4"
+                  className="flex items-center justify-center md:justify-start gap-1 mb-4"
                   aria-label={`${item.rating} out of 5 stars`}
                 >
                   {Array.from({ length: item.rating }).map((_, idx) => (
@@ -95,7 +96,7 @@ export function TestimonialsSection() {
               </div>
 
               {/* Client Avatar & Attribution */}
-              <div className="mt-6 pt-4 border-t border-[#E5DBCB] flex items-center gap-3.5">
+              <div className="mt-6 pt-4 border-t border-[#E5DBCB] flex flex-col md:flex-row items-center gap-2.5 md:gap-3.5">
                 <div
                   aria-hidden="true"
                   className="w-10 h-10 rounded-full bg-[#0C3323] text-[#E4B753] border border-[#E4B753]/50 flex items-center justify-center text-[12px] font-bold tracking-wider shrink-0"

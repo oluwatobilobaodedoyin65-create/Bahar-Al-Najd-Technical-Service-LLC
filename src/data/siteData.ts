@@ -46,8 +46,8 @@ export const SITE_CONTACT = {
 };
 
 export const HERO_MEDIA = {
-  // Replace videoSrc with your hosted MP4/WebM URL when ready; poster & fallback image render seamlessly.
-  videoSrc: '',
+  videoSrc:
+    'https://res.cloudinary.com/bev86hd6/video/upload/v1795115932/Workers_installing_custom_interi__4f4ccd8a_1080p_yeb1wj.mp4',
   posterImage: '/src/assets/images/hero_luxury_kitchen_1795116974099.jpg',
 };
 

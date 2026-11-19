@@ -30,7 +30,7 @@ export function ClientsSection() {
           {CLIENT_LOGO_SLOTS.map((slot) => (
             <div
               key={slot.id}
-              className="py-5 px-4 flex flex-col items-center justify-center text-center group"
+              className="py-5 px-4 flex flex-col items-center justify-center text-center group last:col-span-2 sm:last:col-span-1"
             >
               <div className="flex items-center gap-2.5 text-[#2E463B]/80 group-hover:text-[#0C2B1E] transition-colors">
                 <span className="w-8 h-8 rounded-md border border-[#C69B3E]/55 bg-[#FAF6F0] flex items-center justify-center text-[11px] font-brand font-bold text-[#0C3323] tracking-wider shrink-0">

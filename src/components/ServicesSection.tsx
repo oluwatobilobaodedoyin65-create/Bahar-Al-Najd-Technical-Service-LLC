@@ -66,11 +66,11 @@ export function ServicesSection({ onSelectService }: ServicesSectionProps) {
               </div>
 
               {/* Card Body */}
-              <div className="p-4 flex-1 flex flex-col justify-between gap-3">
+              <div className="p-4 flex-1 flex flex-col items-center text-center sm:items-stretch sm:text-left justify-between gap-3">
                 <div>{renderServiceIcon(service.iconKey)}</div>
 
-                <div className="flex items-end justify-between gap-2">
-                  <h3 className="text-[14.5px] font-bold text-[#0C2B1E] leading-[1.28] tracking-[-0.01em]">
+                <div className="flex flex-col sm:flex-row items-center sm:items-end justify-between gap-3 sm:gap-2 w-full">
+                  <h3 className="text-[14.5px] font-bold text-[#0C2B1E] leading-[1.28] tracking-[-0.01em] text-center sm:text-left">
                     {service.shortTitleLines.map((line, idx) => (
                       <span key={idx} className="block">
                         {line}

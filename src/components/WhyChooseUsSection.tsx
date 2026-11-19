@@ -1,4 +1,4 @@
-import { Gem, ShieldCheck, Users } from 'lucide-react';
+import { Clock, Gem, ShieldCheck, Users } from 'lucide-react';
 import { WHY_CHOOSE_IMAGE } from '../data/siteData';
 import { ResilientImage } from './ResilientImage';
 
@@ -10,6 +10,7 @@ const FEATURES = [
     description:
       'Professional workmanship focused on delivering quality installations and beautiful finishes.',
     Icon: Gem,
+    mobileOnly: false,
   },
   {
     id: 'detail',
@@ -18,6 +19,7 @@ const FEATURES = [
     description:
       'Careful finishing and attention to every detail of your interior project.',
     Icon: ShieldCheck,
+    mobileOnly: false,
   },
   {
     id: 'customer',
@@ -26,6 +28,16 @@ const FEATURES = [
     description:
       "Reliable communication and a service experience focused on the customer's needs.",
     Icon: Users,
+    mobileOnly: false,
+  },
+  {
+    id: 'timely',
+    titleLine1: 'On-Time',
+    titleLine2: 'Completion',
+    description:
+      'Dependable scheduling and punctual handover without compromising finish quality.',
+    Icon: Clock,
+    mobileOnly: true,
   },
 ];
 
@@ -70,12 +82,10 @@ export function WhyChooseUsSection() {
         aria-hidden="true"
         className="hidden lg:block absolute inset-0 w-full h-full pointer-events-none"
       >
-        {/* Outer Warm Gold Crescent Ribbon */}
         <path
           d="M 745 0 C 668 135 668 285 745 420 L 1440 420 L 1440 0 Z"
           fill="#E4B753"
         />
-        {/* Inner Deep Forest-Green Curved Panel */}
         <path
           d="M 764 0 C 686 135 686 285 764 420 L 1440 420 L 1440 0 Z"
           fill="#0B3222"
@@ -84,48 +94,55 @@ export function WhyChooseUsSection() {
 
       {/* Content Container */}
       <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="lg:ml-[48%] py-11 sm:py-13 lg:py-14 lg:pl-12 xl:pl-16">
-          {/* Eyebrow */}
-          <div className="flex items-center gap-3.5 mb-2.5">
+        <div className="lg:ml-[48%] py-11 sm:py-13 lg:py-14 lg:pl-12 xl:pl-16 text-center lg:text-left">
+          {/* Eyebrow (Centered on mobile, left-aligned on desktop) */}
+          <div className="flex items-center justify-center lg:justify-start gap-3.5 mb-2.5">
+            <span className="lg:hidden w-10 h-[1px] bg-[#E4B753]/75" aria-hidden="true" />
             <span className="text-[11px] sm:text-[12px] font-bold tracking-[0.2em] text-[#E4B753] uppercase">
               WHY CHOOSE US
             </span>
-            <span className="w-12 sm:w-16 h-[1px] bg-[#E4B753]/75" aria-hidden="true" />
+            <span className="w-10 sm:w-16 h-[1px] bg-[#E4B753]/75" aria-hidden="true" />
           </div>
 
           {/* Heading */}
-          <h2 className="text-[28px] sm:text-[34px] lg:text-[36px] font-extrabold text-white leading-[1.16] tracking-[-0.02em] max-w-[500px] text-balance">
+          <h2 className="text-[28px] sm:text-[34px] lg:text-[36px] font-extrabold text-white leading-[1.16] tracking-[-0.02em] max-w-[500px] mx-auto lg:mx-0 text-balance">
             Trusted for Quality,
             <br />
             Detail and Reliability
           </h2>
 
-          {/* Three Feature Columns */}
-          <div className="mt-7 sm:mt-8 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-0 sm:divide-x sm:divide-white/20">
-            {FEATURES.map(({ id, titleLine1, titleLine2, description, Icon }, idx) => (
-              <div
-                key={id}
-                className={`flex flex-col items-start sm:items-center sm:text-center ${
-                  idx === 0
-                    ? 'sm:pr-5'
-                    : idx === 1
-                    ? 'sm:px-5'
-                    : 'sm:pl-5'
-                }`}
-              >
-                <Icon
-                  className="w-10 h-10 text-[#E4B753] mb-3 shrink-0"
-                  strokeWidth={1.35}
-                />
-                <h3 className="text-[14.5px] font-bold text-white leading-[1.28]">
-                  <span className="block">{titleLine1}</span>
-                  <span className="block">{titleLine2}</span>
-                </h3>
-                <p className="mt-2 text-[12px] leading-[1.55] text-white/75 max-w-[200px]">
-                  {description}
-                </p>
-              </div>
-            ))}
+          {/* Feature Grid: 4 side-by-side (2x2) on mobile/tablet, 3 columns on desktop matching reference */}
+          <div className="mt-7 sm:mt-8 grid grid-cols-2 lg:grid-cols-3 gap-x-4 gap-y-6 lg:gap-0 lg:divide-x lg:divide-white/20">
+            {FEATURES.map(
+              ({ id, titleLine1, titleLine2, description, Icon, mobileOnly }, idx) => (
+                <div
+                  key={id}
+                  className={`${
+                    mobileOnly ? 'lg:hidden' : ''
+                  } flex flex-col items-center text-center rounded-xl bg-white/[0.04] border border-white/10 p-4 lg:p-0 lg:bg-transparent lg:border-0 lg:rounded-none ${
+                    idx === 0
+                      ? 'lg:pr-5'
+                      : idx === 1
+                      ? 'lg:px-5'
+                      : idx === 2
+                      ? 'lg:pl-5'
+                      : ''
+                  }`}
+                >
+                  <Icon
+                    className="w-9 h-9 sm:w-10 sm:h-10 text-[#E4B753] mb-2.5 sm:mb-3 shrink-0"
+                    strokeWidth={1.35}
+                  />
+                  <h3 className="text-[14px] sm:text-[14.5px] font-bold text-white leading-[1.28]">
+                    <span className="block">{titleLine1}</span>
+                    <span className="block">{titleLine2}</span>
+                  </h3>
+                  <p className="mt-1.5 sm:mt-2 text-[11.5px] sm:text-[12px] leading-[1.5] text-white/75 max-w-[200px]">
+                    {description}
+                  </p>
+                </div>
+              )
+            )}
           </div>
         </div>
       </div>

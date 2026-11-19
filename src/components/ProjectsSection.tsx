@@ -19,8 +19,8 @@ export function ProjectsSection({
       className="w-full bg-[#F6F1E9] pt-14 sm:pt-16 lg:pt-[68px] pb-10 sm:pb-12"
     >
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Top Header Row matching reference */}
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-7 lg:mb-8">
+        {/* Top Header Row matching reference (centered on mobile) */}
+        <div className="flex flex-col items-center text-center sm:flex-row sm:items-end sm:text-left justify-between gap-4 mb-7 lg:mb-8">
           <div>
             <span className="block text-[11px] sm:text-[12px] font-bold tracking-[0.2em] text-[#A87D2A] uppercase">
               FEATURED PROJECTS
@@ -33,7 +33,7 @@ export function ProjectsSection({
           <button
             type="button"
             onClick={onViewAllProjects}
-            className="self-start sm:self-auto inline-flex items-center gap-2 rounded-full border border-[#8E7F69]/65 bg-transparent hover:bg-[#0C2B1E] hover:border-[#0C2B1E] hover:text-white text-[#0C2B1E] font-semibold text-[13.5px] px-5 py-2.5 transition-all duration-200 whitespace-nowrap cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0C3323]"
+            className="self-center sm:self-auto inline-flex items-center gap-2 rounded-full border border-[#8E7F69]/65 bg-transparent hover:bg-[#0C2B1E] hover:border-[#0C2B1E] hover:text-white text-[#0C2B1E] font-semibold text-[13.5px] px-5 py-2.5 transition-all duration-200 whitespace-nowrap cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0C3323]"
           >
             <span>View All Projects</span>
             <ArrowRight className="w-4 h-4 shrink-0" strokeWidth={2} />

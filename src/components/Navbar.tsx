@@ -139,7 +139,7 @@ export function Navbar({ onOpenQuote }: NavbarProps) {
                     e.preventDefault();
                     handleNavClick(link.id);
                   }}
-                  className={`px-3 py-3 rounded-lg text-[15px] font-medium transition-colors ${
+                  className={`px-3 py-3 rounded-lg text-[15px] font-medium text-center transition-colors ${
                     isActive
                       ? 'bg-white/10 text-[#E4B753]'
                       : 'text-white/85 hover:bg-white/5 hover:text-white'

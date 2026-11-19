@@ -29,9 +29,9 @@ export function CtaBanner({ onWhatsAppQuote }: CtaBannerProps) {
         />
       </div>
 
-      {/* Content Aligned on Right Half matching Reference */}
+      {/* Content Centered on Mobile, Aligned on Right Half on Desktop */}
       <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14 lg:py-16">
-        <div className="md:ml-[46%] lg:ml-[48%] max-w-[540px]">
+        <div className="mx-auto md:mx-0 md:ml-[46%] lg:ml-[48%] max-w-[540px] text-center md:text-left">
           <h2
             id="cta-banner-heading"
             className="text-[28px] sm:text-[34px] lg:text-[38px] font-extrabold text-[#0C2B1E] tracking-[-0.02em] leading-[1.14] text-balance"
@@ -43,7 +43,7 @@ export function CtaBanner({ onWhatsAppQuote }: CtaBannerProps) {
             Get a free consultation and a customized quote for your project.
           </p>
 
-          <div className="mt-6 flex flex-wrap items-center gap-3.5">
+          <div className="mt-6 flex flex-wrap items-center justify-center md:justify-start gap-3.5">
             {/* Prominent Gold WhatsApp CTA */}
             <button
               type="button"
