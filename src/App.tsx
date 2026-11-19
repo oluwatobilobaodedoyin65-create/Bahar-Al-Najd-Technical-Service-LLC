@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { MotionConfig } from 'motion/react';
 import { BenefitsStrip } from './components/BenefitsStrip';
 import { ClientsSection } from './components/ClientsSection';
 import { CtaBanner } from './components/CtaBanner';
@@ -50,7 +51,8 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F6F1E9] text-[#0D291D]">
+    <MotionConfig reducedMotion="user">
+      <div className="min-h-screen flex flex-col bg-[#F6F1E9] text-[#0D291D]">
       {/* 1. Navigation / Header */}
       <Navbar onOpenQuote={openQuoteModal} />
 
@@ -125,6 +127,7 @@ export default function App() {
       />
 
       <LegalModal doc={legalDoc} onClose={() => setLegalDoc(null)} />
-    </div>
+      </div>
+    </MotionConfig>
   );
 }

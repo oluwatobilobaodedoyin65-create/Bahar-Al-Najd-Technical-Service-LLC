@@ -1,3 +1,7 @@
+import { motion } from 'motion/react';
+
+const EASE_OUT = [0.22, 1, 0.36, 1] as const;
+
 function PrivateHomeownersIcon() {
   return (
     <svg viewBox="0 0 48 48" fill="none" className="w-11 h-11 shrink-0" aria-hidden="true">
@@ -229,14 +233,26 @@ export function ClientsSection() {
   return (
     <section
       aria-labelledby="clients-heading"
-      className="w-full bg-[#F6F1E9] py-10 sm:py-12 lg:py-14"
+      className="w-full bg-[#F6F1E9] py-10 sm:py-12 lg:py-14 overflow-hidden"
     >
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Deep Forest-Green Rounded Banner matching Attached Reference */}
-        <div className="rounded-[20px] bg-[#072B1C] px-6 py-8 sm:px-8 sm:py-9 lg:px-10 lg:py-8 shadow-[0_14px_38px_rgba(7,43,28,0.16)] border border-white/5">
+        {/* Banner Entrance + Vertical Gold Rule Draw + Spring Tile Pop-In */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 'some' }}
+          transition={{ duration: 0.55, ease: EASE_OUT }}
+          className="rounded-[20px] bg-[#072B1C] px-6 py-8 sm:px-8 sm:py-9 lg:px-10 lg:py-8 shadow-[0_14px_38px_rgba(7,43,28,0.16)] border border-white/5"
+        >
           <div className="flex flex-col lg:flex-row lg:items-center gap-7 lg:gap-0">
-            {/* Left Copy Block (Centered on mobile, left-aligned on desktop) */}
-            <div className="lg:w-[360px] xl:w-[395px] lg:shrink-0 lg:pr-8 text-center lg:text-left">
+            {/* Left Copy Block */}
+            <motion.div
+              initial={{ opacity: 0, x: -18 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 'some' }}
+              transition={{ duration: 0.5, delay: 0.08, ease: EASE_OUT }}
+              className="lg:w-[360px] xl:w-[395px] lg:shrink-0 lg:pr-8 text-center lg:text-left"
+            >
               <span className="block text-[11px] font-bold tracking-[0.2em] text-[#E4B753] uppercase">
                 OUR RECENT CLIENTS
               </span>
@@ -252,20 +268,34 @@ export function ClientsSection() {
               <p className="mt-2.5 text-[13.5px] leading-[1.55] text-white/82 max-w-[360px] mx-auto lg:mx-0">
                 We are proud to work with a growing number of satisfied clients across residential and commercial projects.
               </p>
-            </div>
+            </motion.div>
 
-            {/* Subtle Vertical Gold Divider on Desktop matching Reference */}
-            <div
-              className="hidden lg:block w-[1.5px] h-[112px] bg-[#E4B753]/55 shrink-0"
+            {/* Vertical Gold Rule Drawing from Center */}
+            <motion.div
+              initial={{ scaleY: 0, opacity: 0 }}
+              whileInView={{ scaleY: 1, opacity: 1 }}
+              viewport={{ once: true, amount: 'some' }}
+              transition={{ duration: 0.6, delay: 0.16, ease: EASE_OUT }}
+              className="hidden lg:block w-[1.5px] h-[112px] bg-[#E4B753]/55 shrink-0 origin-center"
               aria-hidden="true"
             />
 
-            {/* Right 5 Cream Rounded Category Cards matching Reference */}
+            {/* Right 5 Cream Category Tiles — Elastic Spring Pop-In */}
             <div className="flex-1 lg:pl-8">
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-3.5">
-                {CLIENT_CATEGORIES.map(({ id, line1, line2, Icon }) => (
-                  <div
+                {CLIENT_CATEGORIES.map(({ id, line1, line2, Icon }, idx) => (
+                  <motion.div
                     key={id}
+                    initial={{ opacity: 0, scale: 0.84, y: 18 }}
+                    whileInView={{ opacity: 1, scale: 1, y: 0 }}
+                    viewport={{ once: true, amount: 'some' }}
+                    transition={{
+                      type: 'spring',
+                      stiffness: 300,
+                      damping: 22,
+                      delay: 0.16 + idx * 0.07,
+                    }}
+                    whileHover={{ y: -5, scale: 1.03 }}
                     className="rounded-[14px] bg-[#FAF4E8] px-3 py-4 sm:py-4.5 flex flex-col items-center justify-center text-center shadow-[0_6px_18px_rgba(0,0,0,0.14)] last:col-span-2 sm:last:col-span-1"
                   >
                     <Icon />
@@ -273,12 +303,12 @@ export function ClientsSection() {
                       <span className="block">{line1}</span>
                       <span className="block">{line2}</span>
                     </span>
-                  </div>
+                  </motion.div>
                 ))}
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

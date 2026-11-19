@@ -1,4 +1,5 @@
 import { Mail, MapPin, Phone } from 'lucide-react';
+import { motion } from 'motion/react';
 import { SERVICES, SITE_CONTACT, ServiceItem } from '../data/siteData';
 import { BrandLogo } from './BrandLogo';
 
@@ -6,6 +7,8 @@ interface FooterProps {
   onSelectService: (service: ServiceItem) => void;
   onOpenLegal: (doc: 'privacy' | 'terms') => void;
 }
+
+const EASE_OUT = [0.22, 1, 0.36, 1] as const;
 
 const QUICK_LINKS = [
   { id: 'home', label: 'Home' },
@@ -25,11 +28,17 @@ export function Footer({ onSelectService, onOpenLegal }: FooterProps) {
   };
 
   return (
-    <footer className="w-full bg-[#082419] text-white">
+    <footer className="w-full bg-[#082419] text-white overflow-hidden">
       <div className="max-w-[1280px] mx-auto px-5 sm:px-6 lg:px-8 pt-12 pb-10 lg:pt-14 lg:pb-12">
         <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_0.75fr_1.25fr_1.15fr_0.85fr] gap-9 lg:gap-8 lg:items-start">
           {/* Column 1: Company Info */}
-          <div className="flex flex-col items-center text-center lg:items-start lg:text-left lg:pr-6 lg:border-r lg:border-white/15">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 'some' }}
+            transition={{ duration: 0.45, delay: 0, ease: EASE_OUT }}
+            className="flex flex-col items-center text-center lg:items-start lg:text-left lg:pr-6 lg:border-r lg:border-white/15"
+          >
             <a
               href="#home"
               onClick={(e) => {
@@ -44,12 +53,18 @@ export function Footer({ onSelectService, onOpenLegal }: FooterProps) {
             <p className="mt-4 text-[13.5px] leading-[1.65] text-white/75 max-w-[290px]">
               Professional technical services for interior installations and finishing solutions for homes and businesses.
             </p>
-          </div>
+          </motion.div>
 
           {/* Columns 2 & 3: Symmetrically centered 2-column block on mobile (Quick Links left, Our Services right), seamlessly unboxed into 5-col desktop grid */}
           <div className="w-full max-w-[400px] mx-auto grid grid-cols-[minmax(0,0.8fr)_minmax(0,1.35fr)] gap-6 sm:gap-8 items-start lg:max-w-none lg:mx-0 lg:contents">
             {/* Column 2: Quick Links */}
-            <div className="text-left">
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 'some' }}
+              transition={{ duration: 0.45, delay: 0.06, ease: EASE_OUT }}
+              className="text-left"
+            >
               <h3 className="text-[14px] font-bold text-white tracking-[0.01em] mb-3.5">
                 Quick Links
               </h3>
@@ -69,10 +84,16 @@ export function Footer({ onSelectService, onOpenLegal }: FooterProps) {
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
 
-            {/* Column 3: Our Services (aligned cleanly to the right of Quick Links with balanced spacing) */}
-            <div className="text-left">
+            {/* Column 3: Our Services */}
+            <motion.div
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, amount: 'some' }}
+              transition={{ duration: 0.45, delay: 0.12, ease: EASE_OUT }}
+              className="text-left"
+            >
               <h3 className="text-[14px] font-bold text-white tracking-[0.01em] mb-3.5">
                 Our Services
               </h3>
@@ -89,11 +110,17 @@ export function Footer({ onSelectService, onOpenLegal }: FooterProps) {
                   </li>
                 ))}
               </ul>
-            </div>
+            </motion.div>
           </div>
 
           {/* Column 4: Get in Touch */}
-          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 'some' }}
+            transition={{ duration: 0.45, delay: 0.18, ease: EASE_OUT }}
+            className="flex flex-col items-center text-center lg:items-start lg:text-left"
+          >
             <h3 className="text-[14px] font-bold text-white tracking-[0.01em] mb-3.5">
               Get in Touch
             </h3>
@@ -121,15 +148,23 @@ export function Footer({ onSelectService, onOpenLegal }: FooterProps) {
                 <span>{SITE_CONTACT.location}</span>
               </li>
             </ul>
-          </div>
+          </motion.div>
 
           {/* Column 5: Follow Us */}
-          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
+          <motion.div
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, amount: 'some' }}
+            transition={{ duration: 0.45, delay: 0.24, ease: EASE_OUT }}
+            className="flex flex-col items-center text-center lg:items-start lg:text-left"
+          >
             <h3 className="text-[14px] font-bold text-white tracking-[0.01em] mb-3.5">
               Follow Us
             </h3>
             <div className="flex items-center justify-center lg:justify-start gap-2.5">
-              <a
+              <motion.a
+                whileHover={{ y: -2, scale: 1.08 }}
+                whileTap={{ scale: 0.94 }}
                 href="#contact"
                 onClick={(e) => {
                   e.preventDefault();
@@ -141,8 +176,10 @@ export function Footer({ onSelectService, onOpenLegal }: FooterProps) {
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4v-8.5z" />
                 </svg>
-              </a>
-              <a
+              </motion.a>
+              <motion.a
+                whileHover={{ y: -2, scale: 1.08 }}
+                whileTap={{ scale: 0.94 }}
                 href="#contact"
                 onClick={(e) => {
                   e.preventDefault();
@@ -156,8 +193,10 @@ export function Footer({ onSelectService, onOpenLegal }: FooterProps) {
                   <circle cx="12" cy="12" r="4" />
                   <circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none" />
                 </svg>
-              </a>
-              <a
+              </motion.a>
+              <motion.a
+                whileHover={{ y: -2, scale: 1.08 }}
+                whileTap={{ scale: 0.94 }}
                 href="#contact"
                 onClick={(e) => {
                   e.preventDefault();
@@ -169,8 +208,10 @@ export function Footer({ onSelectService, onOpenLegal }: FooterProps) {
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M21.58 7.19a2.51 2.51 0 0 0-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42a2.51 2.51 0 0 0-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81a2.51 2.51 0 0 0 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42a2.51 2.51 0 0 0 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3-5.2 3z" />
                 </svg>
-              </a>
-              <a
+              </motion.a>
+              <motion.a
+                whileHover={{ y: -2, scale: 1.08 }}
+                whileTap={{ scale: 0.94 }}
                 href="#contact"
                 onClick={(e) => {
                   e.preventDefault();
@@ -182,9 +223,9 @@ export function Footer({ onSelectService, onOpenLegal }: FooterProps) {
                 <svg className="w-4 h-4 fill-current" viewBox="0 0 24 24" aria-hidden="true">
                   <path d="M6.94 5a2 2 0 1 1-4-.002 2 2 0 0 1 4 .002zM7 8.48H3V21h4V8.48zm6.32 0H9.34V21h3.94v-6.57c0-3.66 4.77-4 4.77 0V21H22v-7.93c0-6.17-7.06-5.94-8.72-2.91l.04-1.68z" />
                 </svg>
-              </a>
+              </motion.a>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
 

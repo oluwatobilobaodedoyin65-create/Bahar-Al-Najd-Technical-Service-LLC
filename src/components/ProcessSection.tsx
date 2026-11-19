@@ -6,6 +6,9 @@ import {
   PencilRuler,
   Settings,
 } from 'lucide-react';
+import { motion } from 'motion/react';
+
+const EASE_OUT = [0.22, 1, 0.36, 1] as const;
 
 const PROCESS_STEPS = [
   {
@@ -38,14 +41,26 @@ export function ProcessSection() {
   return (
     <section
       aria-labelledby="process-heading"
-      className="w-full bg-[#F6F1E9] pb-14 sm:pb-16 lg:pb-[70px]"
+      className="w-full bg-[#F6F1E9] pb-14 sm:pb-16 lg:pb-[70px] overflow-hidden"
     >
       <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Signature Rounded Deep Forest-Green Process Banner from Reference */}
-        <div className="rounded-[20px] bg-[#09281B] px-6 py-8 sm:px-8 sm:py-9 lg:px-10 lg:py-9 shadow-[0_14px_38px_rgba(9,40,27,0.14)] border border-white/5">
+        {/* Sequential Timeline Reveal Banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 26, scale: 0.97 }}
+          whileInView={{ opacity: 1, y: 0, scale: 1 }}
+          viewport={{ once: true, amount: 'some' }}
+          transition={{ duration: 0.6, ease: EASE_OUT }}
+          className="rounded-[20px] bg-[#09281B] px-6 py-8 sm:px-8 sm:py-9 lg:px-10 lg:py-9 shadow-[0_14px_38px_rgba(9,40,27,0.14)] border border-white/5"
+        >
           <div className="flex flex-col lg:flex-row lg:items-center gap-8 lg:gap-0">
-            {/* Left Intro Block (Centered on mobile, left-aligned on desktop) */}
-            <div className="lg:w-[270px] xl:w-[290px] lg:shrink-0 lg:pr-8 lg:border-r lg:border-white/15 text-center lg:text-left">
+            {/* Left Intro Block */}
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true, amount: 'some' }}
+              transition={{ duration: 0.55, delay: 0.1, ease: EASE_OUT }}
+              className="lg:w-[270px] xl:w-[290px] lg:shrink-0 lg:pr-8 lg:border-r lg:border-white/15 text-center lg:text-left"
+            >
               <span className="block text-[11px] font-bold tracking-[0.2em] text-[#E4B753] uppercase">
                 OUR PROCESS
               </span>
@@ -58,20 +73,43 @@ export function ProcessSection() {
               <p className="mt-2 text-[12.5px] leading-[1.55] text-white/70 max-w-[340px] mx-auto lg:mx-0">
                 From consultation to final handover, we make your interior installation smooth, transparent, and stress-free.
               </p>
-            </div>
+            </motion.div>
 
-            {/* Right 4 Steps (Centered vertically on mobile, horizontal with arrows on desktop) */}
+            {/* Right 4 Sequential Workflow Steps & Sliding Arrows */}
             <div className="flex-1 lg:pl-8 xl:pl-10">
               <div className="grid grid-cols-2 lg:grid-cols-[1fr_auto_1fr_auto_1fr_auto_1fr] items-start lg:items-center gap-x-4 gap-y-6 lg:gap-2">
                 {PROCESS_STEPS.map((step, index) => {
                   const Icon = step.Icon;
+                  const stepDelay = 0.18 + index * 0.16;
                   return (
                     <Fragment key={step.number}>
-                      <div className="flex flex-col items-center text-center gap-2.5">
-                        {/* White Circular Icon Badge matching Reference */}
-                        <div className="relative w-12 h-12 rounded-full bg-white text-[#09281B] flex items-center justify-center shrink-0 shadow-[0_6px_16px_rgba(0,0,0,0.22)]">
+                      <motion.div
+                        initial={{ opacity: 0, x: -16 }}
+                        whileInView={{ opacity: 1, x: 0 }}
+                        viewport={{ once: true, amount: 'some' }}
+                        transition={{
+                          duration: 0.45,
+                          delay: stepDelay,
+                          ease: EASE_OUT,
+                        }}
+                        className="flex flex-col items-center text-center gap-2.5"
+                      >
+                        {/* Spring-Pop White Circular Icon Badge */}
+                        <motion.div
+                          initial={{ scale: 0.65, rotate: -10 }}
+                          whileInView={{ scale: 1, rotate: 0 }}
+                          viewport={{ once: true, amount: 'some' }}
+                          transition={{
+                            type: 'spring',
+                            stiffness: 340,
+                            damping: 20,
+                            delay: stepDelay + 0.05,
+                          }}
+                          whileHover={{ scale: 1.09, y: -2 }}
+                          className="relative w-12 h-12 rounded-full bg-white text-[#09281B] flex items-center justify-center shrink-0 shadow-[0_6px_16px_rgba(0,0,0,0.22)]"
+                        >
                           <Icon className="w-5 h-5" strokeWidth={2} />
-                        </div>
+                        </motion.div>
 
                         <div>
                           <div className="flex items-center justify-center gap-1.5 text-[13.5px] sm:text-[14px] font-bold text-white leading-snug">
@@ -87,15 +125,23 @@ export function ProcessSection() {
                             {step.description}
                           </p>
                         </div>
-                      </div>
+                      </motion.div>
 
                       {index < PROCESS_STEPS.length - 1 && (
-                        <div
+                        <motion.div
+                          initial={{ opacity: 0, x: -10 }}
+                          whileInView={{ opacity: 1, x: 0 }}
+                          viewport={{ once: true, amount: 'some' }}
+                          transition={{
+                            duration: 0.35,
+                            delay: stepDelay + 0.1,
+                            ease: EASE_OUT,
+                          }}
                           className="hidden lg:flex items-center justify-center text-white/45 px-1 -mt-6"
                           aria-hidden="true"
                         >
                           <ArrowRight className="w-4 h-4" strokeWidth={1.7} />
-                        </div>
+                        </motion.div>
                       )}
                     </Fragment>
                   );
@@ -103,7 +149,7 @@ export function ProcessSection() {
               </div>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
