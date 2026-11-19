@@ -1,64 +1,58 @@
-import { FormEvent, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   ArrowRight,
-  ChevronDown,
-  Layers,
   Maximize2,
   Pause,
   Play,
-  Search,
   Volume2,
   VolumeX,
 } from 'lucide-react';
-import { HERO_MEDIA, SERVICES, ServiceItem } from '../data/siteData';
-import { ResilientImage } from './ResilientImage';
+import { HERO_MEDIA } from '../data/siteData';
 
 interface HeroSectionProps {
   onRequestQuote: () => void;
   onWatchWork: () => void;
-  onSelectService: (service: ServiceItem) => void;
 }
 
 export function HeroSection({
   onRequestQuote,
   onWatchWork,
-  onSelectService,
 }: HeroSectionProps) {
   const desktopVideoRef = useRef<HTMLVideoElement | null>(null);
   const mobileVideoRef = useRef<HTMLVideoElement | null>(null);
   const [isPlaying, setIsPlaying] = useState(true);
   const [isMuted, setIsMuted] = useState(true);
-  const [videoLoaded, setVideoLoaded] = useState(false);
-  const [videoFailed, setVideoFailed] = useState(false);
-
-  // Mobile quick service finder state
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedServiceId, setSelectedServiceId] = useState('all');
 
   useEffect(() => {
-    if (!HERO_MEDIA.videoSrc) return;
-    [desktopVideoRef.current, mobileVideoRef.current].forEach((video) => {
+    const startAutoplay = (video: HTMLVideoElement | null) => {
       if (!video) return;
+      video.defaultMuted = true;
       video.muted = true;
-      video.play().catch(() => {
-        // Autoplay fallback handled smoothly by poster image
-      });
-    });
+      video.setAttribute('muted', '');
+      video.setAttribute('playsinline', '');
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Retry once user interacts if browser autoplay policy deferred playback
+        });
+      }
+    };
+
+    startAutoplay(desktopVideoRef.current);
+    startAutoplay(mobileVideoRef.current);
   }, []);
 
   const togglePlayback = () => {
     const nextState = !isPlaying;
     setIsPlaying(nextState);
-    if (HERO_MEDIA.videoSrc && !videoFailed) {
-      [desktopVideoRef.current, mobileVideoRef.current].forEach((video) => {
-        if (!video) return;
-        if (nextState) {
-          video.play().catch(() => {});
-        } else {
-          video.pause();
-        }
-      });
-    }
+    [desktopVideoRef.current, mobileVideoRef.current].forEach((video) => {
+      if (!video) return;
+      if (nextState) {
+        video.play().catch(() => {});
+      } else {
+        video.pause();
+      }
+    });
   };
 
   const toggleMute = () => {
@@ -71,42 +65,12 @@ export function HeroSection({
     });
   };
 
-  const handleMobileSearchSubmit = (e: FormEvent) => {
-    e.preventDefault();
-
-    if (selectedServiceId !== 'all') {
-      const exactMatch = SERVICES.find((s) => s.id === selectedServiceId);
-      if (exactMatch) {
-        onSelectService(exactMatch);
-        return;
-      }
-    }
-
-    const normalized = searchQuery.trim().toLowerCase();
-    if (normalized) {
-      const keywordMatch = SERVICES.find(
-        (s) =>
-          s.title.toLowerCase().includes(normalized) ||
-          s.description.toLowerCase().includes(normalized)
-      );
-      if (keywordMatch) {
-        onSelectService(keywordMatch);
-        return;
-      }
-    }
-
-    const servicesSection = document.getElementById('services');
-    if (servicesSection) {
-      servicesSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  };
-
   return (
     <section id="home" className="relative w-full bg-[#0A1813]">
       {/* ================= MOBILE HERO STRUCTURE (< md) ================= */}
       <div className="md:hidden pt-[72px] bg-[#092419]">
-        {/* Centered Header Copy, Stacked Full-Width CTAs & Service Finder */}
-        <div className="px-5 pt-7 pb-7 text-center flex flex-col items-center">
+        {/* Centered Header Copy & Stacked Full-Width CTAs */}
+        <div className="px-5 pt-8 pb-7 text-center flex flex-col items-center">
           {/* Centered Eyebrow */}
           <div className="inline-flex items-center justify-center gap-2.5 mb-3">
             <span className="w-6 h-[1.5px] bg-[#E4B753]" aria-hidden="true" />
@@ -147,102 +111,38 @@ export function HeroSection({
               <span>Watch Our Work</span>
             </button>
           </div>
-
-          {/* Stacked Quick Service Finder matching Mobile Reference Structure */}
-          <form
-            onSubmit={handleMobileSearchSubmit}
-            className="mt-5 w-full max-w-[380px] flex flex-col gap-2.5"
-            aria-label="Quick interior service finder"
-          >
-            <div className="relative">
-              <Search
-                className="w-4 h-4 text-[#55665E] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
-                strokeWidth={2}
-              />
-              <input
-                type="text"
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="Search services (kitchens, TV units...)"
-                aria-label="Search interior services"
-                className="w-full rounded-xl bg-[#FAF6F0] border border-[#E5DBCB] pl-10 pr-4 py-3 text-[14px] text-[#0C2B1E] placeholder:text-[#6B7A73] focus:outline-none focus:ring-2 focus:ring-[#E4B753]"
-              />
-            </div>
-
-            <div className="relative">
-              <Layers
-                className="w-4 h-4 text-[#55665E] absolute left-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
-                strokeWidth={2}
-              />
-              <select
-                value={selectedServiceId}
-                onChange={(e) => setSelectedServiceId(e.target.value)}
-                aria-label="Select service category"
-                className="w-full appearance-none rounded-xl bg-[#FAF6F0] border border-[#E5DBCB] pl-10 pr-10 py-3 text-[14px] text-[#0C2B1E] focus:outline-none focus:ring-2 focus:ring-[#E4B753]"
-              >
-                <option value="all">All interior services</option>
-                {SERVICES.map((svc) => (
-                  <option key={svc.id} value={svc.id}>
-                    {svc.title}
-                  </option>
-                ))}
-              </select>
-              <ChevronDown
-                className="w-4 h-4 text-[#55665E] absolute right-3.5 top-1/2 -translate-y-1/2 pointer-events-none"
-                strokeWidth={2}
-              />
-            </div>
-
-            <button
-              type="submit"
-              className="w-full rounded-xl bg-[#0F422D] hover:bg-[#145239] border border-[#E4B753]/45 text-white font-semibold text-[14.5px] py-3 px-5 transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E4B753]"
-            >
-              Explore Services
-            </button>
-          </form>
         </div>
 
-        {/* Full-Width Video Showcase Block Below Mobile Hero Stack */}
+        {/* Full-Width Autoplaying Video Showcase Below Mobile Hero Stack */}
         <div className="relative isolate w-full aspect-[16/10] bg-[#081A13] overflow-hidden">
           <div className="absolute inset-0 z-0 pointer-events-none">
-            <div
-              className={`absolute inset-0 transition-opacity duration-700 ${
-                videoLoaded && !videoFailed ? 'opacity-0' : 'opacity-100'
-              }`}
+            <video
+              ref={mobileVideoRef}
+              src={HERO_MEDIA.videoSrc}
+              autoPlay
+              muted={isMuted}
+              loop
+              playsInline
+              preload="auto"
+              onLoadedMetadata={(e) => {
+                e.currentTarget.muted = isMuted;
+                if (isPlaying) {
+                  e.currentTarget.play().catch(() => {});
+                }
+              }}
+              onCanPlay={(e) => {
+                if (isPlaying) {
+                  e.currentTarget.play().catch(() => {});
+                }
+              }}
+              className="w-full h-full object-cover"
             >
-              <ResilientImage
-                src={HERO_MEDIA.posterImage}
-                alt="Luxury modern custom walnut kitchen installation with warm architectural LED lighting"
-                loading="eager"
-                className={`w-full h-full object-cover object-center animate-hero-pan ${
-                  !isPlaying ? 'animate-hero-pan-paused' : ''
-                }`}
-              />
-            </div>
+              <source src={HERO_MEDIA.videoSrc} type="video/mp4" />
+            </video>
 
-            {HERO_MEDIA.videoSrc && !videoFailed && (
-              <video
-                ref={mobileVideoRef}
-                autoPlay
-                muted={isMuted}
-                loop
-                playsInline
-                preload="auto"
-                poster={HERO_MEDIA.posterImage}
-                onLoadedData={() => setVideoLoaded(true)}
-                onCanPlay={() => setVideoLoaded(true)}
-                onError={() => setVideoFailed(true)}
-                className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
-                  videoLoaded ? 'opacity-100' : 'opacity-0'
-                }`}
-              >
-                <source src={HERO_MEDIA.videoSrc} type="video/mp4" />
-              </video>
-            )}
-
-            {/* Very subtle bottom vignette for mobile video controls */}
+            {/* Light bottom vignette for mobile video controls */}
             <div
-              className="absolute inset-0 bg-gradient-to-t from-[#06120D]/40 via-transparent to-transparent"
+              className="absolute inset-0 bg-gradient-to-t from-[#06120D]/35 via-transparent to-transparent"
               aria-hidden="true"
             />
           </div>
@@ -290,42 +190,31 @@ export function HeroSection({
 
       {/* ================= DESKTOP / TABLET HERO STRUCTURE (md+) ================= */}
       <div className="hidden md:flex relative isolate w-full min-h-[580px] lg:h-[630px] pt-[72px] lg:pt-[78px] overflow-hidden bg-[#0A1813] items-center">
-        {/* Background Video & Scrim Layer (z-0: strictly behind hero text and controls) */}
+        {/* Background Autoplaying Video & Light Overlay Layer (z-0: strictly behind hero text) */}
         <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
-          <div
-            className={`absolute inset-0 transition-opacity duration-700 ${
-              videoLoaded && !videoFailed ? 'opacity-0' : 'opacity-100'
-            }`}
+          <video
+            ref={desktopVideoRef}
+            src={HERO_MEDIA.videoSrc}
+            autoPlay
+            muted={isMuted}
+            loop
+            playsInline
+            preload="auto"
+            onLoadedMetadata={(e) => {
+              e.currentTarget.muted = isMuted;
+              if (isPlaying) {
+                e.currentTarget.play().catch(() => {});
+              }
+            }}
+            onCanPlay={(e) => {
+              if (isPlaying) {
+                e.currentTarget.play().catch(() => {});
+              }
+            }}
+            className="w-full h-full object-cover"
           >
-            <ResilientImage
-              src={HERO_MEDIA.posterImage}
-              alt="Luxury modern custom walnut kitchen installation with warm architectural LED lighting and marble island"
-              loading="eager"
-              className={`w-full h-full object-cover object-center animate-hero-pan ${
-                !isPlaying ? 'animate-hero-pan-paused' : ''
-              }`}
-            />
-          </div>
-
-          {HERO_MEDIA.videoSrc && !videoFailed && (
-            <video
-              ref={desktopVideoRef}
-              autoPlay
-              muted={isMuted}
-              loop
-              playsInline
-              preload="auto"
-              poster={HERO_MEDIA.posterImage}
-              onLoadedData={() => setVideoLoaded(true)}
-              onCanPlay={() => setVideoLoaded(true)}
-              onError={() => setVideoFailed(true)}
-              className={`absolute inset-0 w-full h-full object-cover transition-opacity duration-700 ${
-                videoLoaded ? 'opacity-100' : 'opacity-0'
-              }`}
-            >
-              <source src={HERO_MEDIA.videoSrc} type="video/mp4" />
-            </video>
-          )}
+            <source src={HERO_MEDIA.videoSrc} type="video/mp4" />
+          </video>
 
           {/* Light Video Overlay (layered above video only, never over text) */}
           <div
@@ -385,7 +274,7 @@ export function HeroSection({
             type="button"
             onClick={togglePlayback}
             aria-label={isPlaying ? 'Pause background showcase' : 'Play background showcase'}
-            title={isPlaying ? 'Pause background motion' : 'Play background motion'}
+            title={isPlaying ? 'Pause video' : 'Play video'}
             className="w-9 h-9 rounded-full border border-white/55 bg-black/30 hover:bg-white/15 backdrop-blur-sm flex items-center justify-center text-white transition-colors cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#E4B753]"
           >
             {isPlaying ? (

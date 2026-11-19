@@ -6,7 +6,7 @@ export interface ServiceItem {
   deliverables: string[];
   turnaround: string;
   image: string;
-  iconKey: 'kitchen' | 'tv' | 'wardrobe' | 'panels' | 'appliance';
+  iconKey: 'kitchen' | 'tv' | 'wardrobe' | 'panels' | 'appliance' | 'lighting';
 }
 
 export interface ProjectItem {
@@ -48,7 +48,6 @@ export const SITE_CONTACT = {
 export const HERO_MEDIA = {
   videoSrc:
     'https://res.cloudinary.com/bev86hd6/video/upload/v1795115932/Workers_installing_custom_interi__4f4ccd8a_1080p_yeb1wj.mp4',
-  posterImage: '/src/assets/images/hero_luxury_kitchen_1795116974099.jpg',
 };
 
 export const WHY_CHOOSE_IMAGE = '/src/assets/images/why_choose_living_1795116969432.jpg';
@@ -129,6 +128,21 @@ export const SERVICES: ServiceItem[] = [
     turnaround: '1–2 Days',
     image: '/src/assets/images/service_appliances_1795116984375.jpg',
     iconKey: 'appliance',
+  },
+  {
+    id: 'lighting-gypsum-ceilings',
+    title: 'Custom Lighting & Gypsum Ceilings',
+    shortTitleLines: ['Custom Lighting', '& Gypsum Ceilings'],
+    description:
+      'Architectural gypsum false ceilings, concealed warm LED cove lighting, magnetic track systems, and dimmable ambient illumination tailored to every room.',
+    deliverables: [
+      'Gypsum false ceiling framing, shadow-gap trims, and seamless plastering',
+      'Recessed warm LED cove channels and flush magnetic track lighting',
+      'Smart dimmer wiring, spotlight alignment, and clean electrical testing',
+    ],
+    turnaround: '3–6 Days',
+    image: '/src/assets/images/service_lighting_ceilings_1795119680121.jpg',
+    iconKey: 'lighting',
   },
 ];
 

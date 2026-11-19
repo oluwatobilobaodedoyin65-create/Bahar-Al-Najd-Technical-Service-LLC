@@ -59,7 +59,6 @@ export default function App() {
         <HeroSection
           onRequestQuote={() => openQuoteModal('form')}
           onWatchWork={() => setShowcaseOpen(true)}
-          onSelectService={(service) => setActiveService(service)}
         />
 
         {/* 3. Benefits / Trust Strip */}

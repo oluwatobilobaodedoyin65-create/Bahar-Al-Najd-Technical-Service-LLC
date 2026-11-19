@@ -1,4 +1,4 @@
-import { ArrowRight, Layers, Tv } from 'lucide-react';
+import { ArrowRight, LampCeiling, Layers, Tv } from 'lucide-react';
 import { SERVICES, ServiceItem } from '../data/siteData';
 import { BuiltInOvenIcon, KitchenCabinetIcon, WardrobeHangerIcon } from './Icons';
 import { ResilientImage } from './ResilientImage';
@@ -20,6 +20,8 @@ function renderServiceIcon(iconKey: ServiceItem['iconKey']) {
       return <Layers className={iconClass} strokeWidth={1.5} />;
     case 'appliance':
       return <BuiltInOvenIcon className={iconClass} />;
+    case 'lighting':
+      return <LampCeiling className={iconClass} strokeWidth={1.5} />;
   }
 }
 
@@ -46,14 +48,14 @@ export function ServicesSection({ onSelectService }: ServicesSectionProps) {
           </p>
         </div>
 
-        {/* Enlarged Service Cards: 3 spacious cards on row 1 + 2 centered cards on row 2 on desktop for maximum image clarity */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:flex lg:flex-wrap lg:justify-center gap-5 lg:gap-6">
+        {/* Enlarged Service Cards: balanced 3x2 grid on desktop for maximum image visibility */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 lg:gap-6">
           {SERVICES.map((service) => (
             <button
               key={service.id}
               type="button"
               onClick={() => onSelectService(service)}
-              className="group text-left lg:w-[calc(33.333%-16px)] rounded-[16px] bg-[#FAF6F0] border border-[#E5DBCB] overflow-hidden shadow-[0_6px_24px_rgba(12,43,30,0.05)] hover:shadow-[0_16px_34px_rgba(12,43,30,0.11)] hover:-translate-y-1 transition-all duration-200 flex flex-col cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0C3323]"
+              className="group text-left rounded-[16px] bg-[#FAF6F0] border border-[#E5DBCB] overflow-hidden shadow-[0_6px_24px_rgba(12,43,30,0.05)] hover:shadow-[0_16px_34px_rgba(12,43,30,0.11)] hover:-translate-y-1 transition-all duration-200 flex flex-col cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[#0C3323]"
             >
               {/* Enlarged High-Visibility Interior Photo */}
               <div className="w-full aspect-[4/3] lg:aspect-[16/11] overflow-hidden bg-[#E9E0D1]">
