@@ -26,10 +26,10 @@ export function Footer({ onSelectService, onOpenLegal }: FooterProps) {
 
   return (
     <footer className="w-full bg-[#082419] text-white">
-      <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 pt-12 pb-10 lg:pt-14 lg:pb-12">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.4fr_0.8fr_1.15fr_1.1fr_0.85fr] gap-8 lg:gap-7">
-          {/* Column 1: Company Info (Centered on mobile, left-aligned on desktop) */}
-          <div className="flex flex-col items-center text-center lg:items-start lg:text-left lg:pr-7 lg:border-r lg:border-white/15">
+      <div className="max-w-[1280px] mx-auto px-5 sm:px-6 lg:px-8 pt-12 pb-10 lg:pt-14 lg:pb-12">
+        <div className="grid grid-cols-1 lg:grid-cols-[1.35fr_0.75fr_1.25fr_1.15fr_0.85fr] gap-9 lg:gap-8 lg:items-start">
+          {/* Column 1: Company Info */}
+          <div className="flex flex-col items-center text-center lg:items-start lg:text-left lg:pr-6 lg:border-r lg:border-white/15">
             <a
               href="#home"
               onClick={(e) => {
@@ -46,10 +46,10 @@ export function Footer({ onSelectService, onOpenLegal }: FooterProps) {
             </p>
           </div>
 
-          {/* Columns 2 & 3: Quick Links (Left) + Our Services (Right) side-by-side on mobile, seamlessly unboxed via lg:contents on desktop */}
-          <div className="grid grid-cols-2 gap-6 sm:gap-8 lg:contents">
+          {/* Columns 2 & 3: Symmetrically centered 2-column block on mobile (Quick Links left, Our Services right), seamlessly unboxed into 5-col desktop grid */}
+          <div className="w-full max-w-[400px] mx-auto grid grid-cols-[minmax(0,0.8fr)_minmax(0,1.35fr)] gap-6 sm:gap-8 items-start lg:max-w-none lg:mx-0 lg:contents">
             {/* Column 2: Quick Links */}
-            <div className="text-center lg:text-left">
+            <div className="text-left">
               <h3 className="text-[14px] font-bold text-white tracking-[0.01em] mb-3.5">
                 Quick Links
               </h3>
@@ -62,7 +62,7 @@ export function Footer({ onSelectService, onOpenLegal }: FooterProps) {
                         e.preventDefault();
                         scrollTo(link.id);
                       }}
-                      className="hover:text-[#E4B753] transition-colors"
+                      className="inline-block leading-[1.45] hover:text-[#E4B753] transition-colors"
                     >
                       {link.label}
                     </a>
@@ -71,8 +71,8 @@ export function Footer({ onSelectService, onOpenLegal }: FooterProps) {
               </ul>
             </div>
 
-            {/* Column 3: Our Services (positioned to the right of Quick Links on mobile) */}
-            <div className="text-center lg:text-left">
+            {/* Column 3: Our Services (aligned cleanly to the right of Quick Links with balanced spacing) */}
+            <div className="text-left">
               <h3 className="text-[14px] font-bold text-white tracking-[0.01em] mb-3.5">
                 Our Services
               </h3>
@@ -82,7 +82,7 @@ export function Footer({ onSelectService, onOpenLegal }: FooterProps) {
                     <button
                       type="button"
                       onClick={() => onSelectService(service)}
-                      className="text-center lg:text-left hover:text-[#E4B753] transition-colors cursor-pointer"
+                      className="block w-full text-left leading-[1.45] hover:text-[#E4B753] transition-colors cursor-pointer"
                     >
                       {service.title}
                     </button>
@@ -92,8 +92,8 @@ export function Footer({ onSelectService, onOpenLegal }: FooterProps) {
             </div>
           </div>
 
-          {/* Column 4: Get in Touch (Centered on mobile, left-aligned on desktop) */}
-          <div className="text-center lg:text-left">
+          {/* Column 4: Get in Touch */}
+          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
             <h3 className="text-[14px] font-bold text-white tracking-[0.01em] mb-3.5">
               Get in Touch
             </h3>
@@ -123,8 +123,8 @@ export function Footer({ onSelectService, onOpenLegal }: FooterProps) {
             </ul>
           </div>
 
-          {/* Column 5: Follow Us (Centered on mobile, left-aligned on desktop) */}
-          <div className="text-center lg:text-left">
+          {/* Column 5: Follow Us */}
+          <div className="flex flex-col items-center text-center lg:items-start lg:text-left">
             <h3 className="text-[14px] font-bold text-white tracking-[0.01em] mb-3.5">
               Follow Us
             </h3>
@@ -190,7 +190,7 @@ export function Footer({ onSelectService, onOpenLegal }: FooterProps) {
 
       {/* Bottom Legal & Copyright Bar */}
       <div className="border-t border-white/12">
-        <div className="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-4.5 flex flex-col sm:flex-row items-center justify-between gap-3 text-[12px] text-white/60 text-center sm:text-left">
+        <div className="max-w-[1280px] mx-auto px-5 sm:px-6 lg:px-8 py-4.5 flex flex-col sm:flex-row items-center justify-between gap-3 text-[12px] text-white/60 text-center sm:text-left">
           <p>© {new Date().getFullYear()} {SITE_CONTACT.companyName}. All Rights Reserved.</p>
 
           <div className="flex items-center justify-center gap-3">
