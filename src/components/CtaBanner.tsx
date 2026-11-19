@@ -12,25 +12,35 @@ export function CtaBanner({ onWhatsAppQuote }: CtaBannerProps) {
     <section
       id="contact"
       aria-labelledby="cta-banner-heading"
-      className="relative w-full bg-[#EFE5D6] overflow-hidden"
+      className="relative isolate w-full bg-[#EFE5D6] overflow-hidden"
     >
-      {/* Background Interior Armchair & Plant Photo matching Reference Banner */}
-      <div className="absolute inset-0">
+      {/* Background Interior Armchair & Plant Photo (z-0: strictly behind CTA text) */}
+      <div className="absolute inset-0 z-0 pointer-events-none">
         <ResilientImage
           src={CTA_BANNER_IMAGE}
           alt="Warm minimalist interior corner with taupe accent armchair and potted indoor plant"
           loading="lazy"
           className="w-full h-full object-cover object-left sm:object-center"
         />
-        {/* Smooth Seamless Sand-Cream Gradient Fade for High Readability on Right */}
+        {/* Mobile Overlay: high-legibility warm cream veil over image so dark text & buttons stand out crisply */}
         <div
-          className="absolute inset-0 bg-gradient-to-r from-[#EFE5D6]/85 via-[#EFE5D6]/92 to-[#EFE5D6] md:from-transparent md:via-[#EFE5D6]/82 md:to-[#EFE5D6]"
+          className="absolute inset-0 bg-[#F6EFE4]/88 backdrop-blur-[2px] md:hidden"
+          aria-hidden="true"
+        />
+        <div
+          className="absolute inset-0 bg-gradient-to-b from-[#F6EFE4]/75 via-[#F6EFE4]/60 to-[#F6EFE4]/80 md:hidden"
+          aria-hidden="true"
+        />
+
+        {/* Desktop Smooth Seamless Sand-Cream Gradient Fade on Right */}
+        <div
+          className="hidden md:block absolute inset-0 bg-gradient-to-r from-transparent via-[#EFE5D6]/82 to-[#EFE5D6]"
           aria-hidden="true"
         />
       </div>
 
-      {/* Content Centered on Mobile, Aligned on Right Half on Desktop */}
-      <div className="relative z-10 max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14 lg:py-16">
+      {/* Content Centered on Mobile, Aligned on Right Half on Desktop (z-20: unaffected by image overlay) */}
+      <div className="relative z-20 max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-14 lg:py-16">
         <div className="mx-auto md:mx-0 md:ml-[46%] lg:ml-[48%] max-w-[540px] text-center md:text-left">
           <h2
             id="cta-banner-heading"
