@@ -107,9 +107,6 @@ export function TestimonialsSection() {
                   <div className="text-[14px] font-bold text-[#0C2B1E] truncate">
                     {item.author}
                   </div>
-                  <div className="text-[12px] text-[#55665E] truncate">
-                    {item.role} · {item.projectType}
-                  </div>
                 </div>
               </div>
             </article>
